@@ -326,7 +326,7 @@ if __name__ == "__main__":
     # test.testGetCorpusLength()
     # test.testBuildVocabulary()
     # test.testCountUnigrams()
-    # test.testGetStartWords()
+    test.testGetStartWords()
     test.testCountStartWords()
     ## Uncomment these for Week 2 ##
 """
