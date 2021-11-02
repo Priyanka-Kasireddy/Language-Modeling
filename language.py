@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from os import X_OK
 import language_tests as test
 
 project = "Language" # don't edit this
@@ -79,7 +80,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    x=[]
+    for i in corpus:
+        if i[0] not in x:
+            x.append(i[0])
+    return  x
 
 
 '''
@@ -89,7 +94,13 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countStartWords(corpus):
-    return
+    x={}
+    for i in corpus:
+        if i[0] not in x:
+            x[i[0]] =1
+        else:
+            x[i[0]]+=1
+    return x
 
 
 '''
@@ -314,7 +325,9 @@ if __name__ == "__main__":
     # test.testLoadBook()
     # test.testGetCorpusLength()
     # test.testBuildVocabulary()
-    test.testCountUnigrams()
+    # test.testCountUnigrams()
+    # test.testGetStartWords()
+    test.testCountStartWords()
     ## Uncomment these for Week 2 ##
 """
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
