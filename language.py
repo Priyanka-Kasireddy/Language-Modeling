@@ -161,16 +161,16 @@ Returns: dict mapping strs to (dicts mapping strs to (lists of values))
 '''
 def buildBigramProbs(unigramCounts, bigramCounts):
     x={}
-    for previous_Word in bigramCounts:
+    for prevWord in bigramCounts:
         word=[]
         prob=[]
-        for key,values in bigramCounts[previous_Word].items():
+        for key,values in bigramCounts[prevWord].items():
             word.append(key)
-            prob.append(values/unigramCounts[previous_Word])
+            prob.append(values/unigramCounts[prevWord])
             y={}
             y["words"]=word
             y["probs"]=prob
-        x[previous_Word]=y
+        x[prevWord]=y
     return x
 
 
