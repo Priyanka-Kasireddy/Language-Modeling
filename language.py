@@ -291,7 +291,34 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    dic={}
+    countp1=[]
+    countp2=[]
+    ugram1=buildVocabulary(corpus1)
+    ucount1=countUnigrams(corpus1)
+    len1=getCorpusLength(corpus1)
+    prob1=buildUnigramProbs(ugram1,ucount1,len1)
+    top1=getTopWords(topWordCount,ugram1,prob1,ignore)
+    ugram2=buildVocabulary(corpus2)
+    ucount2=countUnigrams(corpus2)
+    len2=getCorpusLength(corpus2)
+    prob2=buildUnigramProbs(ugram2,ucount2,len2)
+    top2=getTopWords(topWordCount,ugram2,prob2,ignore)
+    lst=list(top1.keys())+list(top2.keys())
+    twords=list(dict.fromkeys(lst))
+    for i in range(len(twords)):
+        if twords[i] in ugram1:
+            y=ugram1.index(twords[i])
+            countp1.append(prob1[y])
+        else:
+            countp1.append(0)
+        if twords[i] in ugram2:
+            y=ugram2.index(twords[i])
+            countp2.append(prob2[y])
+    dic["topWords"]=twords
+    dic["corpus1Probs"]=countp1
+    dic["corpus2Probs"]=countp2
+    return dic
 
 
 '''
@@ -301,6 +328,8 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
+    dic=setupChartData(corpus1,corpus2,numWords)
+    sideBySideBarPlots(dic["topWords"],dic["corpus1Probs"],dic["corpus2Probs"],name1,name2,title)
     return
 
 
@@ -311,6 +340,8 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
+    dic=setupChartData(corpus1,corpus2,numWords)
+    scatterPlot(dic["corpus1Probs"],dic["corpus2Probs"],dic["topWords"],title)
     return
 
 
